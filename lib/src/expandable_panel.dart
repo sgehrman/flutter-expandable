@@ -136,7 +136,10 @@ class ExpandablePanel extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
-            color: theme.headerBackgroundColor,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
+              color: theme.headerBackgroundColor,
+            ),
             child: buildHeaderRow(),
           ),
           buildBody(),
