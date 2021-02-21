@@ -1,5 +1,5 @@
 import 'dart:math' as math;
-import 'package:expandable/expandable_theme_notifier.dart';
+import 'package:expandable_x/src/expandable_theme_notifier.dart';
 import 'package:flutter/material.dart';
 
 enum ExpandablePanelIconPlacement {
@@ -42,6 +42,7 @@ class ExpandableThemeData {
     iconRotationAngle: -math.pi,
     expandIcon: Icons.expand_more,
     collapseIcon: Icons.expand_more,
+    headerBackgroundColor: Colors.transparent,
   );
 
   static const ExpandableThemeData empty = ExpandableThemeData();
@@ -60,6 +61,7 @@ class ExpandableThemeData {
   final bool tapHeaderToExpand;
   final bool tapBodyToExpand;
   final bool tapBodyToCollapse;
+  final Color headerBackgroundColor;
   final bool hasIcon;
   final double iconSize;
   final EdgeInsets iconPadding;
@@ -90,6 +92,7 @@ class ExpandableThemeData {
     this.expandIcon,
     this.collapseIcon,
     this.inkWellBorderRadius,
+    this.headerBackgroundColor,
   });
 
   factory ExpandableThemeData.combine(
@@ -131,6 +134,8 @@ class ExpandableThemeData {
             theme.iconRotationAngle ?? defaults.iconRotationAngle,
         expandIcon: theme.expandIcon ?? defaults.expandIcon,
         collapseIcon: theme.collapseIcon ?? defaults.collapseIcon,
+        headerBackgroundColor:
+            theme.headerBackgroundColor ?? defaults.headerBackgroundColor,
       );
     }
   }
@@ -172,6 +177,7 @@ class ExpandableThemeData {
         hasIcon != null &&
         iconRotationAngle != null &&
         expandIcon != null &&
+        headerBackgroundColor != null &&
         collapseIcon != null;
   }
 
@@ -198,6 +204,7 @@ class ExpandableThemeData {
           hasIcon == o.hasIcon &&
           iconRotationAngle == o.iconRotationAngle &&
           expandIcon == o.expandIcon &&
+          headerBackgroundColor == o.headerBackgroundColor &&
           collapseIcon == o.collapseIcon;
     } else {
       return false;

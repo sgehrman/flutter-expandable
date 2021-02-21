@@ -1,7 +1,7 @@
-import 'package:expandable/expandable.dart';
-import 'package:expandable/expandable_icon.dart';
-import 'package:expandable/expandable_theme.dart';
-import 'package:expandable/expandable_theme_notifier.dart';
+import 'package:expandable_x/expandable.dart';
+import 'package:expandable_x/src/expandable_icon.dart';
+import 'package:expandable_x/src/expandable_theme.dart';
+import 'package:expandable_x/src/expandable_theme_notifier.dart';
 import 'package:flutter/material.dart';
 
 import 'expandable_button.dart';
@@ -67,14 +67,14 @@ class ExpandablePanel extends StatelessWidget {
               wrap: !theme.tapHeaderToExpand)
         ];
         return wrapWithExpandableButton(
-            widget: Row(
-              crossAxisAlignment: calculateHeaderCrossAxisAlignment(),
-              children:
-                  theme.iconPlacement == ExpandablePanelIconPlacement.right
-                      ? rowChildren
-                      : rowChildren.reversed.toList(),
-            ),
-            wrap: theme.tapHeaderToExpand);
+          widget: Row(
+            crossAxisAlignment: calculateHeaderCrossAxisAlignment(),
+            children: theme.iconPlacement == ExpandablePanelIconPlacement.right
+                ? rowChildren
+                : rowChildren.reversed.toList(),
+          ),
+          wrap: theme.tapHeaderToExpand,
+        );
       }
     }
 
@@ -135,7 +135,10 @@ class ExpandablePanel extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          buildHeaderRow(),
+          Container(
+            color: theme.headerBackgroundColor,
+            child: buildHeaderRow(),
+          ),
           buildBody(),
         ],
       );

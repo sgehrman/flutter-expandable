@@ -1,5 +1,5 @@
-import 'package:expandable/expandable.dart';
-import 'package:expandable/expandable_theme.dart';
+import 'package:expandable_x/expandable.dart';
+import 'package:expandable_x/src/expandable_theme.dart';
 import 'package:flutter/material.dart';
 
 class ExpandableIcon extends StatefulWidget {

@@ -1,4 +1,4 @@
-import 'package:expandable/expandable.dart';
+import 'package:expandable_x/expandable.dart';
 import 'package:flutter/material.dart';
 
 import 'expandable_theme.dart';

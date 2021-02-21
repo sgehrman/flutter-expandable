@@ -1,8 +1,8 @@
-name: expandable
+name: expandable_x
 description: A Flutter widget that can be expanded or collapsed by clicking on a header or an icon.
-version: 4.1.4
-#author: Alexander Ryzhov <aryzhov07@gmail.com>
-homepage: https://github.com/aryzhov/flutter-expandable
+version: 1.0.0
+author: Steve Gehrman <steve@distantfutu.re>
+homepage: https://github.com/sgehrman/flutter-expandable
 
 environment:
   sdk: ">=2.10.5 <3.0.0"

@@ -1,5 +1,5 @@
-import 'package:expandable/expandable_theme.dart';
-import 'package:expandable/expandable_theme_notifier.dart';
+import 'package:expandable_x/src/expandable_theme.dart';
+import 'package:expandable_x/src/expandable_theme_notifier.dart';
 import 'package:flutter/material.dart';
 
 class ExpandableController extends ValueNotifier<bool> {

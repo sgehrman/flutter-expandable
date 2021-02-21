@@ -14,10 +14,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  expandable:
+  expandable_x:
     path: ../
 
 flutter:
-
   uses-material-design: true
-
