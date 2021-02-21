@@ -53,7 +53,12 @@ class ExpandablePanel extends StatelessWidget {
       }
 
       Widget wrapWithExpandableButton({Widget widget, bool wrap}) {
-        return wrap ? ExpandableButton(child: widget) : widget;
+        return wrap
+            ? ExpandableButton(
+                theme: _theme,
+                child: widget,
+              )
+            : widget;
       }
 
       if (!theme.hasIcon) {

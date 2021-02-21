@@ -4,18 +4,22 @@ import 'package:flutter/material.dart';
 
 class ExpandableButton extends StatelessWidget {
   final Widget child;
+  final ExpandableThemeData theme;
 
-  const ExpandableButton({@required this.child});
+  const ExpandableButton({
+    @required this.child,
+    this.theme,
+  });
 
   @override
   Widget build(BuildContext context) {
     final controller = ExpandableController.of(context);
-    final theme = ExpandableThemeData.withDefaults(null, context);
+    final mergedTheme = ExpandableThemeData.withDefaults(theme, context);
 
-    if (theme.useInkWell) {
+    if (mergedTheme.useInkWell) {
       return InkWell(
         onTap: controller.toggle,
-        borderRadius: theme.inkWellBorderRadius,
+        borderRadius: mergedTheme.inkWellBorderRadius,
         child: child,
       );
     } else {
