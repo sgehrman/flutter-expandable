@@ -5,13 +5,11 @@ version: 4.1.4
 homepage: https://github.com/aryzhov/flutter-expandable
 
 environment:
-  sdk: ">=2.7.0 < 3.0.0"
-  flutter: "^1.12.0"
+  sdk: ">=2.10.5 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  lint: ^1.0.0

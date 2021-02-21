@@ -32,11 +32,10 @@ class MyHomePageState extends State<MyHomePage> {
         title: Text("Expandable Demo"),
       ),
       body: ExpandableTheme(
-        data:
-            const ExpandableThemeData(
-                iconColor: Colors.blue,
-                useInkWell: true,
-            ),
+        data: const ExpandableThemeData(
+          iconColor: Colors.blue,
+          useInkWell: true,
+        ),
         child: ListView(
           physics: const BouncingScrollPhysics(),
           children: <Widget>[
@@ -68,7 +67,6 @@ class Card1 extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.orange,
-                  shape: BoxShape.rectangle,
                 ),
               ),
             ),
@@ -84,7 +82,7 @@ class Card1 extends StatelessWidget {
                     padding: EdgeInsets.all(10),
                     child: Text(
                       "ExpandablePanel",
-                      style: Theme.of(context).textTheme.body2,
+                      style: Theme.of(context).textTheme.bodyText1,
                     )),
                 collapsed: Text(
                   loremIpsum,
@@ -149,7 +147,7 @@ class Card2 extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     "Expandable",
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ],
               ),
@@ -176,7 +174,7 @@ class Card2 extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     "Expandable",
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                   Text(
                     "3 Expandable widgets",
@@ -332,7 +330,7 @@ class Card3 extends StatelessWidget {
                             "Items",
                             style: Theme.of(context)
                                 .textTheme
-                                .body2
+                                .bodyText1
                                 .copyWith(color: Colors.white),
                           ),
                         ),
