@@ -17,6 +17,7 @@ class ExpandablePanel extends StatelessWidget {
   final Widget collapsed;
   final Widget expanded;
   final ExpandableBuilder builder;
+  final Function onExpand;
   final ExpandableController controller;
   final ExpandableThemeData _theme;
 
@@ -27,6 +28,7 @@ class ExpandablePanel extends StatelessWidget {
     this.expanded,
     this.controller,
     this.builder,
+    this.onExpand,
     ExpandableThemeData theme,
   })  : _theme = ExpandableThemeData.combine(const ExpandableThemeData(), theme)
             .nullIfEmpty(),
@@ -105,6 +107,10 @@ class ExpandablePanel extends StatelessWidget {
         return GestureDetector(
           behavior: HitTestBehavior.translucent,
           onTap: () {
+            if (onExpand != null) {
+              onExpand();
+            }
+
             final controller = ExpandableController.of(context);
             controller?.toggle();
           },
