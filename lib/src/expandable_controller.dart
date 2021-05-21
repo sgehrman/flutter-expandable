@@ -6,7 +6,7 @@ class ExpandableController extends ValueNotifier<bool> {
   bool get expanded => value;
 
   ExpandableController({
-    bool initialExpanded,
+    bool? initialExpanded,
   }) : super(initialExpanded ?? false);
 
   set expanded(bool exp) {
@@ -17,7 +17,7 @@ class ExpandableController extends ValueNotifier<bool> {
     expanded = !expanded;
   }
 
-  static ExpandableController of(BuildContext context,
+  static ExpandableController? of(BuildContext context,
       {bool rebuildOnChange = true}) {
     final notifier = rebuildOnChange
         ? context
@@ -28,40 +28,40 @@ class ExpandableController extends ValueNotifier<bool> {
 }
 
 class Expandable extends StatelessWidget {
-  final Widget collapsed;
-  final Widget expanded;
-  final ExpandableController controller;
+  final Widget? collapsed;
+  final Widget? expanded;
+  final ExpandableController? controller;
 
-  final ExpandableThemeData _theme;
+  final ExpandableThemeData? _theme;
 
   Expandable({
-    Key key,
+    Key? key,
     this.collapsed,
     this.expanded,
     this.controller,
-    ExpandableThemeData theme,
+    ExpandableThemeData? theme,
   })  : _theme = ExpandableThemeData.combine(const ExpandableThemeData(), theme)
             .nullIfEmpty(),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final controller = this.controller ?? ExpandableController.of(context);
+    final controller = this.controller ?? ExpandableController.of(context)!;
     final theme = ExpandableThemeData.withDefaults(_theme, context);
 
     return AnimatedCrossFade(
-      alignment: theme.alignment,
+      alignment: theme.alignment!,
       firstChild: collapsed ?? Container(),
       secondChild: expanded ?? Container(),
       firstCurve: Interval(theme.collapsedFadeStart, theme.collapsedFadeEnd,
-          curve: theme.fadeCurve),
+          curve: theme.fadeCurve!),
       secondCurve: Interval(theme.expandedFadeStart, theme.expandedFadeEnd,
-          curve: theme.fadeCurve),
-      sizeCurve: theme.sizeCurve,
+          curve: theme.fadeCurve!),
+      sizeCurve: theme.sizeCurve!,
       crossFadeState: controller.expanded
           ? CrossFadeState.showSecond
           : CrossFadeState.showFirst,
-      duration: theme.animationDuration,
+      duration: theme.animationDuration!,
     );
   }
 }

@@ -13,23 +13,23 @@ typedef ExpandableBuilder = Widget Function(
 );
 
 class ExpandablePanel extends StatelessWidget {
-  final Widget header;
-  final Widget collapsed;
-  final Widget expanded;
-  final ExpandableBuilder builder;
-  final Function onExpand;
-  final ExpandableController controller;
-  final ExpandableThemeData _theme;
+  final Widget? header;
+  final Widget? collapsed;
+  final Widget? expanded;
+  final ExpandableBuilder? builder;
+  final Function? onExpand;
+  final ExpandableController? controller;
+  final ExpandableThemeData? _theme;
 
   ExpandablePanel({
-    Key key,
+    Key? key,
     this.header,
     this.collapsed,
     this.expanded,
     this.controller,
     this.builder,
     this.onExpand,
-    ExpandableThemeData theme,
+    ExpandableThemeData? theme,
   })  : _theme = ExpandableThemeData.combine(const ExpandableThemeData(), theme)
             .nullIfEmpty(),
         super(key: key);
@@ -38,8 +38,8 @@ class ExpandablePanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = ExpandableThemeData.withDefaults(_theme, context);
 
-    Widget buildHeaderRow() {
-      CrossAxisAlignment calculateHeaderCrossAxisAlignment() {
+    Widget? buildHeaderRow() {
+      CrossAxisAlignment? calculateHeaderCrossAxisAlignment() {
         switch (theme.headerAlignment) {
           case ExpandablePanelHeaderAlignment.top:
             return CrossAxisAlignment.start;
@@ -47,12 +47,12 @@ class ExpandablePanel extends StatelessWidget {
             return CrossAxisAlignment.center;
           case ExpandablePanelHeaderAlignment.bottom:
             return CrossAxisAlignment.end;
+          default:
+            return CrossAxisAlignment.center;
         }
-        assert(false);
-        return null;
       }
 
-      Widget wrapWithExpandableButton({Widget widget, bool wrap}) {
+      Widget? wrapWithExpandableButton({Widget? widget, required bool wrap}) {
         return wrap
             ? ExpandableButton(
                 theme: _theme,
@@ -61,33 +61,33 @@ class ExpandablePanel extends StatelessWidget {
             : widget;
       }
 
-      if (!theme.hasIcon) {
+      if (!theme.hasIcon!) {
         return wrapWithExpandableButton(
-            widget: header, wrap: theme.tapHeaderToExpand);
+            widget: header, wrap: theme.tapHeaderToExpand!);
       } else {
-        final rowChildren = <Widget>[
+        final rowChildren = <Widget?>[
           Expanded(
-            child: header,
+            child: header!,
           ),
           wrapWithExpandableButton(
               widget: ExpandableIcon(theme: theme),
-              wrap: !theme.tapHeaderToExpand)
+              wrap: !theme.tapHeaderToExpand!)
         ];
         return wrapWithExpandableButton(
           widget: Row(
-            crossAxisAlignment: calculateHeaderCrossAxisAlignment(),
+            crossAxisAlignment: calculateHeaderCrossAxisAlignment()!,
             children: theme.iconPlacement == ExpandablePanelIconPlacement.right
-                ? rowChildren
-                : rowChildren.reversed.toList(),
+                ? rowChildren as List<Widget>
+                : rowChildren.reversed.toList() as List<Widget>,
           ),
-          wrap: theme.tapHeaderToExpand,
+          wrap: theme.tapHeaderToExpand!,
         );
       }
     }
 
     Widget buildBody() {
-      Widget wrapBody(Widget child, {bool tap}) {
-        Alignment calcAlignment() {
+      Widget wrapBody(Widget? child, {required bool tap}) {
+        Alignment? calcAlignment() {
           switch (theme.bodyAlignment) {
             case ExpandablePanelBodyAlignment.left:
               return Alignment.topLeft;
@@ -102,7 +102,7 @@ class ExpandablePanel extends StatelessWidget {
         }
 
         final widget = Align(
-          alignment: calcAlignment(),
+          alignment: calcAlignment()!,
           child: child,
         );
 
@@ -113,7 +113,7 @@ class ExpandablePanel extends StatelessWidget {
           behavior: HitTestBehavior.translucent,
           onTap: () {
             if (onExpand != null) {
-              onExpand();
+              onExpand!();
             }
 
             final controller = ExpandableController.of(context);
@@ -134,10 +134,10 @@ class ExpandablePanel extends StatelessWidget {
 
       return builder(
         context,
-        wrapBody(collapsed, tap: theme.tapBodyToExpand),
+        wrapBody(collapsed, tap: theme.tapBodyToExpand!),
         wrapBody(
           expanded,
-          tap: theme.tapBodyToCollapse,
+          tap: theme.tapBodyToCollapse!,
         ),
       );
     }
@@ -170,6 +170,7 @@ class ExpandablePanel extends StatelessWidget {
           ExpandableController.of(context, rebuildOnChange: false);
       if (controller == null) {
         return ExpandableNotifier(
+          controller: controller,
           child: panel,
         );
       } else {

@@ -3,10 +3,10 @@ import 'package:expandable_x/src/expandable_theme.dart';
 import 'package:flutter/material.dart';
 
 class ExpandableIcon extends StatefulWidget {
-  final ExpandableThemeData _theme;
+  final ExpandableThemeData? _theme;
 
   ExpandableIcon({
-    ExpandableThemeData theme,
+    required ExpandableThemeData theme,
   }) : _theme = theme.nullIfEmpty();
 
   @override
@@ -15,10 +15,10 @@ class ExpandableIcon extends StatefulWidget {
 
 class _ExpandableIconState extends State<ExpandableIcon>
     with SingleTickerProviderStateMixin {
-  AnimationController animationController;
-  Animation<double> animation;
-  ExpandableThemeData theme;
-  ExpandableController controller;
+  late AnimationController animationController;
+  late Animation<double> animation;
+  ExpandableThemeData? theme;
+  ExpandableController? controller;
 
   @override
   void initState() {
@@ -29,19 +29,19 @@ class _ExpandableIconState extends State<ExpandableIcon>
         AnimationController(duration: theme.animationDuration, vsync: this);
     animation = animationController.drive(
       Tween<double>(begin: 0.0, end: 1.0).chain(
-        CurveTween(curve: theme.sizeCurve),
+        CurveTween(curve: theme.sizeCurve!),
       ),
     );
     controller = ExpandableController.of(context, rebuildOnChange: false);
-    controller.addListener(_expandedStateChanged);
-    if (controller.expanded) {
+    controller!.addListener(_expandedStateChanged);
+    if (controller!.expanded) {
       animationController.value = 1.0;
     }
   }
 
   @override
   void dispose() {
-    controller.removeListener(_expandedStateChanged);
+    controller!.removeListener(_expandedStateChanged);
     animationController.dispose();
     super.dispose();
   }
@@ -55,11 +55,11 @@ class _ExpandableIconState extends State<ExpandableIcon>
   }
 
   void _expandedStateChanged() {
-    if (controller.expanded &&
+    if (controller!.expanded &&
         const [AnimationStatus.dismissed, AnimationStatus.reverse]
             .contains(animationController.status)) {
       animationController.forward();
-    } else if (!controller.expanded &&
+    } else if (!controller!.expanded &&
         const [AnimationStatus.completed, AnimationStatus.forward]
             .contains(animationController.status)) {
       animationController.reverse();
@@ -74,8 +74,8 @@ class _ExpandableIconState extends State<ExpandableIcon>
     if (controller2 != controller) {
       controller?.removeListener(_expandedStateChanged);
       controller = controller2;
-      controller.addListener(_expandedStateChanged);
-      if (controller.expanded) {
+      controller!.addListener(_expandedStateChanged);
+      if (controller!.expanded) {
         animationController.value = 1.0;
       }
     }
@@ -86,19 +86,19 @@ class _ExpandableIconState extends State<ExpandableIcon>
     theme ??= ExpandableThemeData.withDefaults(widget._theme, context);
 
     return Padding(
-      padding: theme.iconPadding,
+      padding: theme!.iconPadding!,
       child: AnimatedBuilder(
         animation: animation,
         builder: (context, child) {
           final showSecondIcon =
-              theme.collapseIcon != theme.expandIcon && animation.value >= 0.5;
+              theme!.collapseIcon != theme!.expandIcon && animation.value >= 0.5;
           return Transform.rotate(
-            angle: theme.iconRotationAngle *
+            angle: theme!.iconRotationAngle! *
                 (showSecondIcon ? -(1.0 - animation.value) : animation.value),
             child: Icon(
-              showSecondIcon ? theme.collapseIcon : theme.expandIcon,
-              color: theme.iconColor,
-              size: theme.iconSize,
+              showSecondIcon ? theme!.collapseIcon : theme!.expandIcon,
+              color: theme!.iconColor,
+              size: theme!.iconSize,
             ),
           );
         },

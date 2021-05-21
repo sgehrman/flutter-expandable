@@ -47,28 +47,28 @@ class ExpandableThemeData {
 
   static const ExpandableThemeData empty = ExpandableThemeData();
 
-  final Color iconColor;
-  final bool useInkWell;
-  final Duration animationDuration;
-  final Duration scrollAnimationDuration;
-  final double crossFadePoint;
-  final AlignmentGeometry alignment;
-  final Curve fadeCurve;
-  final Curve sizeCurve;
-  final ExpandablePanelHeaderAlignment headerAlignment;
-  final ExpandablePanelBodyAlignment bodyAlignment;
-  final ExpandablePanelIconPlacement iconPlacement;
-  final bool tapHeaderToExpand;
-  final bool tapBodyToExpand;
-  final bool tapBodyToCollapse;
-  final Color headerBackgroundColor;
-  final bool hasIcon;
-  final double iconSize;
-  final EdgeInsets iconPadding;
-  final double iconRotationAngle;
-  final IconData expandIcon;
-  final IconData collapseIcon;
-  final BorderRadius inkWellBorderRadius;
+  final Color? iconColor;
+  final bool? useInkWell;
+  final Duration? animationDuration;
+  final Duration? scrollAnimationDuration;
+  final double? crossFadePoint;
+  final AlignmentGeometry? alignment;
+  final Curve? fadeCurve;
+  final Curve? sizeCurve;
+  final ExpandablePanelHeaderAlignment? headerAlignment;
+  final ExpandablePanelBodyAlignment? bodyAlignment;
+  final ExpandablePanelIconPlacement? iconPlacement;
+  final bool? tapHeaderToExpand;
+  final bool? tapBodyToExpand;
+  final bool? tapBodyToCollapse;
+  final Color? headerBackgroundColor;
+  final bool? hasIcon;
+  final double? iconSize;
+  final EdgeInsets? iconPadding;
+  final double? iconRotationAngle;
+  final IconData? expandIcon;
+  final IconData? collapseIcon;
+  final BorderRadius? inkWellBorderRadius;
 
   const ExpandableThemeData({
     this.iconColor,
@@ -96,13 +96,13 @@ class ExpandableThemeData {
   });
 
   factory ExpandableThemeData.combine(
-    ExpandableThemeData theme,
-    ExpandableThemeData defaults,
+    ExpandableThemeData? theme,
+    ExpandableThemeData? defaults,
   ) {
     if (defaults == null || defaults.isEmpty()) {
       return theme ?? empty;
     } else if (theme == null || theme.isEmpty()) {
-      return defaults ?? empty;
+      return defaults;
     } else if (theme.isFull()) {
       return theme;
     } else {
@@ -141,16 +141,17 @@ class ExpandableThemeData {
   }
 
   double get collapsedFadeStart =>
-      crossFadePoint < 0.5 ? 0 : (crossFadePoint * 2 - 1);
+      crossFadePoint! < 0.5 ? 0 : (crossFadePoint! * 2 - 1);
 
-  double get collapsedFadeEnd => crossFadePoint < 0.5 ? 2 * crossFadePoint : 1;
+  double get collapsedFadeEnd =>
+      crossFadePoint! < 0.5 ? 2 * crossFadePoint! : 1;
 
   double get expandedFadeStart =>
-      crossFadePoint < 0.5 ? 0 : (crossFadePoint * 2 - 1);
+      crossFadePoint! < 0.5 ? 0 : (crossFadePoint! * 2 - 1);
 
-  double get expandedFadeEnd => crossFadePoint < 0.5 ? 2 * crossFadePoint : 1;
+  double get expandedFadeEnd => crossFadePoint! < 0.5 ? 2 * crossFadePoint! : 1;
 
-  ExpandableThemeData nullIfEmpty() {
+  ExpandableThemeData? nullIfEmpty() {
     return isEmpty() ? null : this;
   }
 
@@ -225,7 +226,7 @@ class ExpandableThemeData {
   }
 
   factory ExpandableThemeData.withDefaults(
-      ExpandableThemeData theme, BuildContext context,
+      ExpandableThemeData? theme, BuildContext context,
       {bool rebuildOnChange = true}) {
     if (theme != null && theme.isFull()) {
       return theme;
@@ -245,11 +246,11 @@ class ExpandableTheme extends StatelessWidget {
   final ExpandableThemeData data;
   final Widget child;
 
-  const ExpandableTheme({@required this.data, @required this.child});
+  const ExpandableTheme({required this.data, required this.child});
 
   @override
   Widget build(BuildContext context) {
-    final ExpandableThemeNotifier n =
+    final ExpandableThemeNotifier? n =
         context.dependOnInheritedWidgetOfExactType<ExpandableThemeNotifier>();
     return ExpandableThemeNotifier(
       themeData: ExpandableThemeData.combine(data, n?.themeData),

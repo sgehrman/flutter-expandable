@@ -8,11 +8,11 @@ class ScrollOnExpand extends StatefulWidget {
   final bool scrollOnExpand;
   final bool scrollOnCollapse;
 
-  final ExpandableThemeData theme;
+  final ExpandableThemeData? theme;
 
   const ScrollOnExpand({
-    Key key,
-    @required this.child,
+    Key? key,
+    required this.child,
     this.scrollOnExpand = true,
     this.scrollOnCollapse = true,
     this.theme,
@@ -23,16 +23,16 @@ class ScrollOnExpand extends StatefulWidget {
 }
 
 class _ScrollOnExpandState extends State<ScrollOnExpand> {
-  ExpandableController _controller;
+  ExpandableController? _controller;
   int _isAnimating = 0;
-  BuildContext _lastContext;
-  ExpandableThemeData _theme;
+  BuildContext? _lastContext;
+  ExpandableThemeData? _theme;
 
   @override
   void initState() {
     super.initState();
     _controller = ExpandableController.of(context, rebuildOnChange: false);
-    _controller.addListener(_expandedStateChanged);
+    _controller!.addListener(_expandedStateChanged);
   }
 
   @override
@@ -41,9 +41,9 @@ class _ScrollOnExpandState extends State<ScrollOnExpand> {
     final newController =
         ExpandableController.of(context, rebuildOnChange: false);
     if (newController != _controller) {
-      _controller.removeListener(_expandedStateChanged);
+      _controller!.removeListener(_expandedStateChanged);
       _controller = newController;
-      _controller.addListener(_expandedStateChanged);
+      _controller!.addListener(_expandedStateChanged);
     }
   }
 
@@ -56,11 +56,11 @@ class _ScrollOnExpandState extends State<ScrollOnExpand> {
   void _animationComplete() {
     _isAnimating--;
     if (_isAnimating == 0 && _lastContext != null && mounted) {
-      if ((_controller.expanded && widget.scrollOnExpand) ||
-          (!_controller.expanded && widget.scrollOnCollapse)) {
+      if ((_controller!.expanded && widget.scrollOnExpand) ||
+          (!_controller!.expanded && widget.scrollOnCollapse)) {
         _lastContext
             ?.findRenderObject()
-            ?.showOnScreen(duration: _theme.scrollAnimationDuration);
+            ?.showOnScreen(duration: _theme!.scrollAnimationDuration!);
       }
     }
   }
@@ -69,7 +69,7 @@ class _ScrollOnExpandState extends State<ScrollOnExpand> {
     if (_theme != null) {
       _isAnimating++;
       Future.delayed(
-        _theme.scrollAnimationDuration + const Duration(milliseconds: 10),
+        _theme!.scrollAnimationDuration! + const Duration(milliseconds: 10),
         _animationComplete,
       );
     }

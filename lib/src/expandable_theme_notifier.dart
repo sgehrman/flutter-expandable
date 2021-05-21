@@ -3,13 +3,13 @@ import 'package:expandable_x/src/expandable_theme.dart';
 import 'package:flutter/material.dart';
 
 class ExpandableNotifier extends StatefulWidget {
-  final ExpandableController controller;
+  final ExpandableController? controller;
   final Widget child;
 
   const ExpandableNotifier({
-    Key key,
-    @required this.controller,
-    @required this.child,
+    Key? key,
+    required this.controller,
+    required this.child,
   }) : super(key: key);
 
   @override
@@ -17,7 +17,7 @@ class ExpandableNotifier extends StatefulWidget {
 }
 
 class _ExpandableNotifierState extends State<ExpandableNotifier> {
-  ExpandableThemeData theme;
+  ExpandableThemeData? theme;
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +32,15 @@ class _ExpandableNotifierState extends State<ExpandableNotifier> {
 class ExpandableControllerNotifier
     extends InheritedNotifier<ExpandableController> {
   const ExpandableControllerNotifier(
-      {@required ExpandableController controller, @required Widget child})
+      {required ExpandableController? controller, required Widget child})
       : super(notifier: controller, child: child);
 }
 
 class ExpandableThemeNotifier extends InheritedWidget {
-  final ExpandableThemeData themeData;
+  final ExpandableThemeData? themeData;
 
   const ExpandableThemeNotifier(
-      {@required this.themeData, @required Widget child})
+      {required this.themeData, required Widget child})
       : super(child: child);
 
   @override
