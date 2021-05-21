@@ -14,7 +14,7 @@ typedef ExpandableBuilder = Widget Function(
 
 class ExpandablePanel extends StatelessWidget {
   final Widget header;
-  final Widget collapsed;
+  final Widget? collapsed;
   final Widget expanded;
   final ExpandableBuilder builder;
   final Function? onExpand;
@@ -23,7 +23,7 @@ class ExpandablePanel extends StatelessWidget {
 
   ExpandablePanel({
     required this.header,
-    required this.collapsed,
+    this.collapsed,
     required this.expanded,
     this.controller,
     required this.builder,
